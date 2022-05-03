@@ -1,7 +1,7 @@
 dev-setup:
 	docker-compose build && docker-compose up
 
-dev-run:
+dev-cmd:
 	docker-compose exec salesapi $(command)
 
 prod-build:
