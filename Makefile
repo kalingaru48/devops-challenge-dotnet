@@ -7,5 +7,8 @@ database_string:= "Server=10.0.0.11,1433;User ID=SA;Password=Your_password123;Da
 dev-cmd:
 	docker-compose exec salesapi dotnet ef --project  "/app/src/DevOpsChallenge.SalesApi.Database" $(command) --connection $(database_string)
 
-prod-build:
+build-image:
 	docker build -t salesapi .
+
+push-image:
+	docker image push
