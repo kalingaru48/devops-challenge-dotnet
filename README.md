@@ -15,7 +15,7 @@ Run below command to setup the environment
 
 `make dev-setup`
 
-NOTE: For Window users, you need to install make command with below command: 
+NOTE: For Window users, you need to install make utility with below command: 
 
 `choco install make`
 
