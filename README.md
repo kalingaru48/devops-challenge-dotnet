@@ -3,11 +3,11 @@
 
 ## Development setup :wave:
 
-git clone the repository:
+Clone the project repository:
 
 `git clone https://github.com/kalingaru48/devops-challenge-dotnet.git`
 
-change the directory to "devops-challenge-dotnet" folder
+Change the directory to "devops-challenge-dotnet" folder
 
 `cd devops-challenge-dotnet`
 
