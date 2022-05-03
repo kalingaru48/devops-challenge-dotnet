@@ -10,15 +10,12 @@ services:
      - ./src/:/app/src/
     ports:
       - "8080:80"
-  
-  # Hosted the dabase in external server as local pc doesn't have enough resources
-  # You can uncommenct below to run the database in a local container and then change hostname in database string contaienr name
 
-  # salesapi-database:
-  #   container_name: salesapi-database
-  #   image: "mcr.microsoft.com/mssql/server:2019-latest"
-  #   ports:
-  #     - "1433:1433"
-  #   environment:
-  #     SA_PASSWORD: "Your_password123"
-  #     ACCEPT_EULA: "Y"
+  salesapi-database:
+    container_name: salesapi-database
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "Your_password123"
+      ACCEPT_EULA: "Y"
