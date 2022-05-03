@@ -26,6 +26,14 @@ NOTE: For Window users, you need to install make command with below command:
 NOTE: If you want to change the database connection string, you can change the default "database_string" variable in Makefile
 
 
+## CI/CD configuration
+
+Continous Integartion pipline is configured in Github Actions.
+
+You can edit `.github/workflows/docker-image.yml` for changes
+
+
+
 
 
 
