@@ -3,7 +3,17 @@
 
 ## Development setup :wave:
 
-make dev-setup
+git clone the repository:
+
+`git clone https://github.com/kalingaru48/devops-challenge-dotnet.git`
+
+change the directory to "devops-challenge-dotnet" folder
+
+`cd devops-challenge-dotnet`
+
+Run below command to setup the environment
+
+`make dev-setup`
 
 NOTE: For Window users, you need to install make command with below command: 
 
@@ -11,7 +21,7 @@ NOTE: For Window users, you need to install make command with below command:
 
 ## Runing database migrations commands
 
-make dev-cmd command="database update"
+`make dev-cmd command="database update"`
 
 NOTE: If you want to change the database connection string you can change it the default "database_string" variable in Makefile
 
