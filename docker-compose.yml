@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  salesapi:
+    container_name: salesapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: build-env
+    volumes:
+     - ./src/:/app/src/
+    ports:
+      - "8080:80"
+  # salesapi-database:
+  #   container_name: salesapi-database
+  #   image: "mcr.microsoft.com/mssql/server:2019-latest"
+  #   ports:
+  #     - "1433:1433"
+  #   environment:
+  #     SA_PASSWORD: "Your_password123"
+  #     ACCEPT_EULA: "Y"

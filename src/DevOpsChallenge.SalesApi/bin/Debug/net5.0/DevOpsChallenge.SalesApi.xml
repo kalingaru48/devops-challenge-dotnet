@@ -1,0 +1,275 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DevOpsChallenge.SalesApi</name>
+    </assembly>
+    <members>
+        <member name="T:DevOpsChallenge.SalesApi.Controllers.ReportsController">
+            <summary>
+            Controller for reports.
+            </summary>
+        </member>
+        <member name="M:DevOpsChallenge.SalesApi.Controllers.ReportsController.#ctor(DevOpsChallenge.SalesApi.Business.Services.IReportService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DevOpsChallenge.SalesApi.Controllers.ReportsController"/> class.
+            </summary>
+            <param name="reportService">The reportservice.</param>
+        </member>
+        <member name="P:DevOpsChallenge.SalesApi.Controllers.ReportsController.ReportService">
+            <summary>
+            Gets the service.
+            </summary>
+        </member>
+        <member name="M:DevOpsChallenge.SalesApi.Controllers.ReportsController.GetDailySalesReportAsync(System.DateTime,System.DateTime)">
+            <summary>
+            Generate the sales report which aggregates sales by day.
+            </summary>
+            <param name="from">The inclusive from date.</param>
+            <param name="to">The inclusive to date.</param>
+            <response code="200">The details of the sale records.</response>
+            <response code="400">
+            Unable to process the request. An error code will indicate the cause.
+            * FromDateRequired: The "from" date is required.
+            * ToDateRequired: The "to" date is required.
+            * ToDateMustBeAfterFromDate: The "to" date must be later in time than the "from" date.
+            * DateRangeMustNoMoreThanAYear: The difference between the "to" and "from" date cannot be more than a year.
+            </response>
+            <returns>A HTTP response.</returns>
+        </member>
+        <member name="T:DevOpsChallenge.SalesApi.Controllers.SalesController">
+            <summary>
+            Controller for sale operations.
+            </summary>
+        </member>
+        <member name="M:DevOpsChallenge.SalesApi.Controllers.SalesController.#ctor(DevOpsChallenge.SalesApi.Business.Services.ISaleService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DevOpsChallenge.SalesApi.Controllers.SalesController"/> class.
+            </summary>
+            <param name="saleService">The sale service.</param>
+        </member>
+        <member name="P:DevOpsChallenge.SalesApi.Controllers.SalesController.SaleService">
+            <summary>
+            Gets the service.
+            </summary>
+        </member>
+        <member name="M:DevOpsChallenge.SalesApi.Controllers.SalesController.GetAsync(System.String)">
+            <summary>
+            Get a sale record.
+            </summary>
+            <param name="transactionId">The transaction ID.</param>
+            <response code="200">The details of the sale record.</response>
+            <response code="400">
+            Unable to process the request. An error code will indicate the cause.
+            * TransactionIdRequired: The transaction ID was missing.
+            * TransactionIdInvalid: The transaction ID was malformed. It should be up to 32 characters and only contain letters and numbers.
+            </response>
+            <response code="404">A sale record was not found with the transaction ID.</response>
+            <returns>A HTTP response.</returns>
+        </member>
+        <member name="M:DevOpsChallenge.SalesApi.Controllers.SalesController.GetAllAsync(System.DateTime,System.DateTime)">
+            <summary>
+            List sale records between certain dates.
+            </summary>
+            <param name="from">The inclusive from date.</param>
+            <param name="to">The inclusive to date.</param>
+            <response code="200">The details of the sale records.</response>
+            <response code="400">
+            Unable to process the request. An error code will indicate the cause.
+            * FromDateRequired: The "from" date is required.
+            * ToDateRequired: The "to" date is required.
+            * ToDateMustBeAfterFromDate: The "to" date must be later in time than the "from" date.
+            * DateRangeMustNoMoreThanAYear: The difference between the "to" and "from" date cannot be more than a year.
+            </response>
+            <returns>A HTTP response.</returns>
+        </member>
+        <member name="M:DevOpsChallenge.SalesApi.Controllers.SalesController.AddAsync(DevOpsChallenge.SalesApi.Models.SaleDto)">
+            <summary>
+            Add a new sale record.
+            </summary>
+            <param name="dto">The DTO containing the details of the sale.</param>
+            <response code="201">The details of the created sale record.</response>
+            <response code="400">
+            Unable to process the request. An error code will indicate the cause.
+            * TransactionIdRequired: The transaction ID was missing.
+            * TransactionIdInvalid: The transaction ID was malformed. It should be up to 32 characters and only contain letters and numbers.
+            * DateRequired: The date was missing.
+            * DateInvalid: The date must not be in the future.
+            * AmountRequired: The amount was missing.
+            * AmountInvalid: The amount cannot be less than zero.
+            * NotesInvalid: The notes must not be more than 256 characters.
+            </response>
+            <response code="409">A sale with the same transaction ID already exists. The sale has not been recorded..</response>
+            <returns>A HTTP response.</returns>
+        </member>
+        <member name="T:DevOpsChallenge.SalesApi.ModelConvertor">
+            <summary>
+            Converts business models to DTOs.
+            </summary>
+        </member>
+        <member name="M:DevOpsChallenge.SalesApi.ModelConvertor.ToDto(DevOpsChallenge.SalesApi.Business.Models.SaleDetails)">
+            <summary>
+            Convert business model to DTO.
+            </summary>
+            <param name="model">The business model.</param>
+            <returns>The DTO.</returns>
+        </member>
+        <member name="M:DevOpsChallenge.SalesApi.ModelConvertor.ToDto(System.Collections.Generic.IList{DevOpsChallenge.SalesApi.Business.Models.SaleDetails})">
+            <summary>
+            Convert business model to DTO.
+            </summary>
+            <param name="models">The business models.</param>
+            <returns>The DTO.</returns>
+        </member>
+        <member name="M:DevOpsChallenge.SalesApi.ModelConvertor.ToDto(DevOpsChallenge.SalesApi.Business.Models.DailySalesReportDetails)">
+            <summary>
+            Convert business model to DTO.
+            </summary>
+            <param name="model">The business model.</param>
+            <returns>The DTO.</returns>
+        </member>
+        <member name="T:DevOpsChallenge.SalesApi.Models.ErrorDto">
+            <summary>
+            DTO for an error.
+            </summary>
+        </member>
+        <member name="P:DevOpsChallenge.SalesApi.Models.ErrorDto.Code">
+            <summary>
+            Gets or sets the error code that indicates the cause of the error.
+            </summary>
+        </member>
+        <member name="T:DevOpsChallenge.SalesApi.Models.SaleDto">
+            <summary>
+            DTO of a sale.
+            </summary>
+        </member>
+        <member name="P:DevOpsChallenge.SalesApi.Models.SaleDto.TransactionId">
+            <summary>
+            Gets or sets the transaction ID.
+            </summary>
+        </member>
+        <member name="P:DevOpsChallenge.SalesApi.Models.SaleDto.Date">
+            <summary>
+            Gets or sets the date.
+            </summary>
+        </member>
+        <member name="P:DevOpsChallenge.SalesApi.Models.SaleDto.Amount">
+            <summary>
+            Gets or sets the amount.
+            </summary>
+        </member>
+        <member name="P:DevOpsChallenge.SalesApi.Models.SaleDto.Notes">
+            <summary>
+            Gets or sets the notes.
+            </summary>
+        </member>
+        <member name="T:DevOpsChallenge.SalesApi.Models.SalesReportDto">
+            <summary>
+            DTO for the sales report.
+            </summary>
+        </member>
+        <member name="P:DevOpsChallenge.SalesApi.Models.SalesReportDto.StartDate">
+            <summary>
+            Gets or sets the start date of the report.
+            </summary>
+        </member>
+        <member name="P:DevOpsChallenge.SalesApi.Models.SalesReportDto.EndDate">
+            <summary>
+            Gets or sets the end date of the report.
+            </summary>
+        </member>
+        <member name="P:DevOpsChallenge.SalesApi.Models.SalesReportDto.GroupBy">
+            <summary>
+            Gets or sets the aggregation period of the report.
+            </summary>
+        </member>
+        <member name="P:DevOpsChallenge.SalesApi.Models.SalesReportDto.XAxisLabel">
+            <summary>
+            Gets or sets the X axis label which represents each entry.
+            </summary>
+        </member>
+        <member name="P:DevOpsChallenge.SalesApi.Models.SalesReportDto.YAxisLabel">
+            <summary>
+            Gets or sets the Y axis label which represents the value of an entry.
+            </summary>
+        </member>
+        <member name="P:DevOpsChallenge.SalesApi.Models.SalesReportDto.Entries">
+            <summary>
+            Gets or sets the data points of the report.
+            </summary>
+        </member>
+        <member name="T:DevOpsChallenge.SalesApi.Models.SalesReportEntryDto">
+            <summary>
+            DTO for the data points for the sales report.
+            </summary>
+        </member>
+        <member name="P:DevOpsChallenge.SalesApi.Models.SalesReportEntryDto.Label">
+            <summary>
+            Gets or sets the label of the data point.
+            </summary>
+        </member>
+        <member name="P:DevOpsChallenge.SalesApi.Models.SalesReportEntryDto.Value">
+            <summary>
+            Gets or sets the value of the data point.
+            </summary>
+        </member>
+        <member name="T:DevOpsChallenge.SalesApi.Models.SalesReportGroupByOption">
+            <summary>
+            DTO for the options for aggregating sale report data by a period.
+            </summary>
+        </member>
+        <member name="F:DevOpsChallenge.SalesApi.Models.SalesReportGroupByOption.Day">
+            <summary>
+            Day.
+            </summary>
+        </member>
+        <member name="T:DevOpsChallenge.SalesApi.Models.SaleSummaryDto">
+            <summary>
+            DTO for the summary of a sale.
+            </summary>
+        </member>
+        <member name="P:DevOpsChallenge.SalesApi.Models.SaleSummaryDto.TransactionId">
+            <summary>
+            Gets or sets the transaction ID.
+            </summary>
+        </member>
+        <member name="P:DevOpsChallenge.SalesApi.Models.SaleSummaryDto.Date">
+            <summary>
+            Gets or sets the date.
+            </summary>
+        </member>
+        <member name="P:DevOpsChallenge.SalesApi.Models.SaleSummaryDto.Amount">
+            <summary>
+            Gets or sets the amount.
+            </summary>
+        </member>
+        <member name="T:DevOpsChallenge.SalesApi.Startup">
+            <summary>
+            Start the web application.
+            </summary>
+        </member>
+        <member name="M:DevOpsChallenge.SalesApi.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DevOpsChallenge.SalesApi.Startup"/> class.
+            </summary>
+            <param name="configuration">The application configuration.</param>
+        </member>
+        <member name="P:DevOpsChallenge.SalesApi.Startup.Configuration">
+            <summary>
+            Gets the application configuration.
+            </summary>
+        </member>
+        <member name="M:DevOpsChallenge.SalesApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configure the dependency injection container.
+            </summary>
+            <param name="services">The dependency injection service collection.</param>
+        </member>
+        <member name="M:DevOpsChallenge.SalesApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Configure the HTTP pipeline and some services.
+            </summary>
+            <param name="app">The application pipeline builder.</param>
+            <param name="env">The hosting environment.</param>
+        </member>
+    </members>
+</doc>
