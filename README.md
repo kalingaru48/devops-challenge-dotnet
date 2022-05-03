@@ -19,7 +19,7 @@ NOTE: For Window users, you need to install make utility with below command:
 
 `choco install make`
 
-## Runing database migrations commands
+## Runing database migration commands
 
 `make dev-cmd command="database update"`
 
